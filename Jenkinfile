@@ -24,9 +24,16 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile install -e -X'
+                script {
+                    try {
+                        bat 'mvn clean compile install -e -X'
+                    } catch (Exception e) {
+                        error("Build failed: ${e.message}")
+                    }
+                }
             }
         }
+
 
         stage('SonarQube Analysis') {
             steps {
