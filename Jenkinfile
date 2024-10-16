@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        bat 'mvn clean compile install -e -X'
+                        bat 'mvn clean compile install -U'
                     } catch (Exception e) {
                         error("Build failed: ${e.message}")
                     }
