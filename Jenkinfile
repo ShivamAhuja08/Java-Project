@@ -36,7 +36,7 @@ pipeline {
                           -Dsonar.projectKey=My_First_Project \
                           -Dsonar.projectName='My_First_Project' \
                           -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.token=sqp_a33465f6e9f8ec0147e23403960a4bf0e222f8e3
+                          -Dsonar.token=sqp_0b50ba94883ffbba6f463f593496f84be3f5df75
                     '''
                 }
             }
