@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk 'JDK21'
-        maven 'Maven3'
+        jdk 'JAVA'
+        maven 'MAVEN'
     }
     environment {
         SONARQUBE_SERVER_URL = 'http://localhost:9000'
