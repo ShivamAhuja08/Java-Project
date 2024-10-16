@@ -30,13 +30,13 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-               withSonarQubeEnv('SonarQube_Server') {
+                withSonarQubeEnv('SonarQube_Server') {
                     bat '''
-                       mvn clean verify sonar:sonar \
-                          -Dsonar.projectKey=My_First_Project \
-                          -Dsonar.projectName='My_First_Project' \
-                          -Dsonar.host.url=http://localhost:9000 \
-                          -Dsonar.token=sqp_0b50ba94883ffbba6f463f593496f84be3f5df75
+                        mvn clean verify sonar:sonar \
+                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+                            -Dsonar.projectName="My_First_Project" \
+                            -Dsonar.host.url=${SONARQUBE_SERVER_URL} \
+                            -Dsonar.token=sqp_0b50ba94883ffbba6f463f593496f84be3f5df75
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     bat '''
-                        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v C:/ProgramData/Jenkins/.jenkins/workspace/java-sonar:/root/.cache/ -v C:/ProgramData/Jenkins/.jenkins/workspace/trivy-db:/root/.trivy aquasec/trivy image --scanners vuln --format json -o C:/ProgramData/Jenkins/.jenkins/workspace/java-sonar/trivy-report.json %DOCKER_IMAGE%:%BUILD_NUMBER%
+                        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v C:/ProgramData/Jenkins/.jenkins/workspace/java-sonar:/root/.cache/ -v C:/ProgramData/Jenkins/.jenkins/workspace/trivy-db:/root/.trivy aquasec/trivy image --scanners vuln --format json -o C:/ProgramData/Jenkins/.jenkins/workspace/java-sonar/${REPORT_FILE} %DOCKER_IMAGE%:%BUILD_NUMBER%
                     '''
                 }
             }
